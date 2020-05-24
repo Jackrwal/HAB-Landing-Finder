@@ -88,5 +88,10 @@ for prediction in predictions.values():
 
 # If any landings were in range output these
 if len(output) > 0:
-    print('Predictions for within {:d}km of home from {}\n\r'.format(args.distance, args.url))
+
+    # get model date time. note model date provided in JSON is in american format
+    model = responseJSON["model"]
+    model = '{}/{}/{} {}:00'.format(model[6:8], model[4:6], model[:4], model[-2:])
+
+    print('Predictions for within {:d}km of home from {}. Using model {}.\n\r'.format(args.distance, args.url, model))
     print(output)
