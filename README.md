@@ -24,7 +24,7 @@ note if you wish to run the script outside of a virtual environment or to instal
 skip this step and ensure the python requests libary is intalled.
 
 ## Usage
-run `Python getHABLandingsInDistance.py \<Home Lat\> \<Home Long\> \<distance\> \<URL\>`
+run `Python getHABLandingsInDistance.py <Home Lat> <Home Long> <distance> <URL>`
 
 use `Python getHABLandingsInDistance.py --help` for a description of paramaters.
 
