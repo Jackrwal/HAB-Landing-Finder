@@ -4,8 +4,8 @@ This python scripts uses the predictions from CUSF's HABHub hourly predictor (ht
 
 note the script only reports results for potential launches at 00:00, 06:00, 12:00 and 18:00 as these are the times when baloons are normally launched, this is because the prediction just returns hourly predictions for if a baloon was to be launched, rather than only predictions for when a balloon will be launched. 
 
-If you are interested in launches not as these times you may add more launch hours to line 77 (below)
-'if launch['hour'] == 0 or launch['hour'] == 6 or launch['hour'] == 12 or launch['hour'] == 18:'
+If you are interested in launches not as these times you may add more launch hours to line 77 (below)<br>
+`if launch['hour'] == 0 or launch['hour'] == 6 or launch['hour'] == 12 or launch['hour'] == 18:`
 
 ## Install
 Requirements, python3
