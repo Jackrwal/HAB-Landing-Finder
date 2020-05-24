@@ -7,7 +7,7 @@ note the script only reports results for potential launches at 00:00, 06:00, 12:
 If you are interested in launches not as these times you may add more launch hours to line 77 (below)
 'if launch['hour'] == 0 or launch['hour'] == 6 or launch['hour'] == 12 or launch['hour'] == 18:'
 
-Install
+# Install
 Requirements, python3
 
 to get the code navigate to an empty directory where you want the code and use git clone to download the repository or download the project ZIP and expand it here if not using git
@@ -23,16 +23,16 @@ to install project requirements and create virutal run environment:
 note if you wish to run the script outside of a virtual environment or to install packages not using the python package installer 
 skip this step and ensure the python requests libary is intalled.
 
-Usage
+# Usage
 run Python getHABLandingsInDistance.py <Home Lat> <Home Long> <distance> <URL>
 
 use 'Python getHABLandingsInDistance.py --help' for a description of paramaters.
 
-Linux Cron Job
+
+# Linux Cron Job
 this is a cron job that may be usefull for running this on a linux server. This runs the script at 6am each morning for launches in Watnall, Herstmonceux and Camborne and emails a given email with any landings predicted in the given distance
 
 
-# Get Balloon predictions
 Xx      6       *       *       *       <folder you put HAB finder in>/HAB-Landing-Finder/getHABLandingsInDistance.py <home lat> <home lng> <distance> http://predict.habhub.org/hourly/watnall | mail --exec 'set nonullbody' -s "Watnall Sonde Predictions" <email>
 
 Xx      6       *       *       *       <folder you put HAB finder in>/HAB-Landing-Finder/getHABLandingsInDistance.py <home lat> <home lng> <distance> http://predict.habhub.org/hourly/herstmonceux | mail --exec 'set nonullbody' -s "Herstmonceux Sonde Predictions" <email>
