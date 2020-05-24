@@ -27,13 +27,13 @@ def haversine(lat1, lng1, lat2, lng2):
 argParser = argparse.ArgumentParser()
 
 argParser.add_argument('lat',
-                       metavar='L1',
+                       metavar='la',
                        type=float,
                        help="The Latitude of home location e.g. 47.3387486"
                        )
 
 argParser.add_argument('long',
-                       metavar='L2',
+                       metavar='ln',
                        type=float,
                        help="The Longitude of home location e.g. 13.6326257"
                        )
@@ -79,12 +79,14 @@ for prediction in predictions.values():
             landing = prediction['landing-time']
             location = prediction['landing-location']
 
-            output += "Distance: {:2.0f}km, Launch: {} {} {:02d}:{:02d}, Landing: {:02d}:{:02d}, At: https://www.google.com/maps/?q={:2.6f},{:2.6f}\n\r".format(
+            output += "Distance: {:2.0f}km, Launch: {} {} {:02d}:{:02d}, Landing: {:02d}:{:02d}, At: https://www.google.com/maps/dir/{:2.6f},{:2.6f}/{:2.6f},{:2.6f}\n\r".format(
                 landingDist,
                 datetime.datetime.strptime(launchStr, '%d/%m/%Y').strftime('%a'),
                 launchStr, launch['hour'], launch['minute'],
                 landing['hour'], landing['minute'],
-                location['latitude'], location['longitude'])
+                home['latitude'], home['longitude'],
+                location['latitude'], location['longitude']
+            )
 
 # If any landings were in range output these
 if len(output) > 0:
