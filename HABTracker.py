@@ -55,7 +55,7 @@ class HABTracker:
 
             # Filter Data
             landings = HABTracker._filter()
-            print(landings)
+            HABTracker._notify(landings)
 
             # Notify for any predicted landings near by
 
@@ -64,6 +64,11 @@ class HABTracker:
     @staticmethod
     def stop():
         HABTracker.running = False
+
+    # This Method can be over-written or re-written to change how the program notifys the user of near by landings
+    @staticmethod
+    def _notify(data):
+        print(data)
 
     @staticmethod
     def setHome(lat, lng):
