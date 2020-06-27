@@ -1,7 +1,9 @@
 import requests
 import time
 import json
+from math import radians, cos, sin, asin, sqrt
 
+#https://www.google.com/maps/?q=<lat>,<lng>
 
 class HABTracker:
 
@@ -17,12 +19,22 @@ class HABTracker:
     _home = {"latitude": -1, "longitude": -1}
 
     # range from home to track in kilometers
-    range = 30
+    range = -1
 
     running = False
 
     # How often the tracking data should be updated and filtered in seconds
+    # default 5 minutes
     interval = 300
+
+    @staticmethod
+    def runOnce(lat ,lng, range):
+        HABTracker._home = {"latitude": lat, "longitude": lng}
+        HABTracker.range = range
+
+        landings = HABTracker._filter()
+        print(landings)
+
 
     @staticmethod
     def run():
@@ -42,6 +54,8 @@ class HABTracker:
             HABTracker._updateTrackingData()
 
             # Filter Data
+            landings = HABTracker._filter()
+            print(landings)
 
             # Notify for any predicted landings near by
 
@@ -57,10 +71,57 @@ class HABTracker:
 
     @staticmethod
     def _updateTrackingData():
-        print('retrieving latest predictions')
-
         HABTracker._trackData = requests.get(HABTracker.trackingURL).json()
-        print(HABTracker._trackData)
 
+    @staticmethod
+    def _filter():
 
+        result = []
+
+        for prediction in HABTracker._trackData:
+            locations = json.loads(prediction["data"])
+
+            # check for dataless responses
+            if len(locations) < 1 or (type(locations) is dict and 'errors' in locations.keys()):
+                continue
+
+            # To filter on landed or descending use
+            # if prediciton[<"landed" or "descending">] == <1 or 0>: continue (this skips this prediction)
+
+            landing = locations[len(locations)-1]
+            distance = HABTracker._findLandingDistance(landing)
+            if distance < HABTracker.range:
+
+                prediction["landing"] = landing
+                prediction["distance"] = distance
+                prediction["data"] = "processed"
+                result.append(prediction)
+
+        return result
+
+    @staticmethod
+    def _findLandingDistance(landing):
+
+        lat1 = HABTracker._home['latitude']
+        lng1 = HABTracker._home['longitude']
+
+        lat2 = float(landing['lat'])
+        lng2 = float(landing['lon'])
+
+        # convert lat long to radians
+        lng1, lat1, lng2, lat2 = map(radians, [lng1, lat1, lng2, lat2])
+
+        # Haversine formula
+        dLng = lng2 - lng1
+        dLat = lat2 - lat1
+
+        a = sin(dLat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dLng / 2) ** 2
+        c = 2 * asin(sqrt(a))
+
+        # the earths radius in Km
+        radius = 6371
+
+        return c * radius
+
+#HABTracker.runOnce(52.317445, -0.7021945, 100)
 #HABTracker.run()
