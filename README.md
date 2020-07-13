@@ -28,6 +28,8 @@ Distance from home is measured in kilometres.
 URL is the URL of the habhub endpoint to use for predictions<br>
 e.g. http://predict.habhub.org/hourly/watnall/
 
+A list of known launch sites and associated predictor URL's is here: https://ukhas.org.uk/frontpage:radiosondes
+
 run `Python getHABLandingsInDistance.py --help` for further description of parameters.
 
 ### Linux Cron Job
