@@ -79,7 +79,7 @@ for prediction in predictions.values():
             landing = prediction['landing-time']
             location = prediction['landing-location']
 
-            output += "Distance: {:2.0f}km, Launch: {} {} {:02d}:{:02d}, Landing: {:02d}:{:02d}, At: https://www.google.com/maps/dir/{:2.6f},{:2.6f}/{:2.6f},{:2.6f}\n\r".format(
+            output += "Distance: {:2.0f}km, Launch: {} {} {:02d}:{:02d}, Landing: {:02d}:{:02d}, At: https://www.google.com/maps/dir/{:2.6f}%2C{:2.6f}/{:2.6f}%2C{:2.6f}\n\r".format(
                 landingDist,
                 datetime.datetime.strptime(launchStr, '%d/%m/%Y').strftime('%a'),
                 launchStr, launch['hour'], launch['minute'],
